@@ -24,6 +24,16 @@ function detectOS(): DetectedOS {
     return "other";
   }
 
+  if (process.env.NODE_ENV === "development") {
+    const forced = new URLSearchParams(window.location.search).get("os")?.toLowerCase();
+    if (forced === "windows" || forced === "win") {
+      return "windows";
+    }
+    if (forced === "mac" || forced === "macos") {
+      return "mac";
+    }
+  }
+
   const navigatorWithUAData = window.navigator as Navigator & {
     userAgentData?: { platform?: string };
   };
