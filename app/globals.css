@@ -13,6 +13,9 @@
   --code-bg: #f1f5f9;
   --ghost-bg: #ffffff;
   --radius: 16px;
+  --motion-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-duration: 680ms;
+  --motion-fast: 220ms;
 }
 
 :root[data-theme="dark"] {
@@ -65,6 +68,55 @@ body {
   line-height: 1.5;
 }
 
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fade-in-scale {
+  from {
+    opacity: 0;
+    transform: translate3d(12px, 20px, 0) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes header-drop {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.page-enter {
+  isolation: isolate;
+}
+
+.animate-fade-up {
+  opacity: 0;
+  animation: fade-up var(--motion-duration) var(--motion-ease) forwards;
+  will-change: transform, opacity;
+}
+
+.animate-fade-in-scale {
+  opacity: 0;
+  animation: fade-in-scale 820ms var(--motion-ease) forwards;
+  will-change: transform, opacity;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -77,6 +129,7 @@ a {
   backdrop-filter: blur(8px);
   border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
   background: color-mix(in srgb, var(--bg) 85%, transparent);
+  animation: header-drop 500ms var(--motion-ease) both;
 }
 
 .container {
@@ -118,6 +171,28 @@ a {
   font-weight: 600;
 }
 
+.nav-links a {
+  position: relative;
+  transition: color var(--motion-fast) ease;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.25rem;
+  height: 2px;
+  background: color-mix(in srgb, var(--primary) 70%, transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--motion-fast) ease;
+}
+
+.nav-links a:hover::after {
+  transform: scaleX(1);
+}
+
 .hero {
   padding: 4rem 0 3rem;
 }
@@ -144,6 +219,9 @@ a {
   border-radius: 12px;
   padding: 1.25rem;
   box-shadow: 0 12px 40px rgb(2 6 23 / 0.08);
+  transition:
+    transform var(--motion-fast) ease,
+    box-shadow var(--motion-fast) ease;
 }
 
 .hero-card.hero-card--app {
@@ -159,6 +237,11 @@ a {
   right: -132px;
   z-index: 1;
   transform: none;
+}
+
+.hero-card.hero-card--app:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 46px rgb(2 6 23 / 0.2);
 }
 
 .hero-app-image {
@@ -242,6 +325,18 @@ h2 {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 1rem;
+  transition:
+    transform var(--motion-fast) ease,
+    box-shadow var(--motion-fast) ease,
+    border-color var(--motion-fast) ease;
+}
+
+.feature-card:hover,
+.download-card:hover,
+.notice:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--line) 50%, var(--primary));
+  box-shadow: 0 16px 34px rgb(2 6 23 / 0.12);
 }
 
 .download-list {
@@ -259,6 +354,12 @@ h2 {
 
 .download-card.inapplicable {
   opacity: 0.55;
+}
+
+.download-card.inapplicable:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: var(--line);
 }
 
 code {
@@ -284,6 +385,21 @@ code {
   padding: 0.65rem 1rem;
   font-weight: 700;
   border: 1px solid transparent;
+  transition:
+    transform var(--motion-fast) ease,
+    box-shadow var(--motion-fast) ease,
+    background-color var(--motion-fast) ease,
+    border-color var(--motion-fast) ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgb(2 6 23 / 0.14);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 .btn-primary {

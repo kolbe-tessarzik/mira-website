@@ -193,12 +193,11 @@ export default async function DownloadsPage({ searchParams }: PageProps) {
   const slots = selectedRelease ? buildDownloadSlots(selectedRelease) : null;
 
   return (
-    <main className="section">
+    <main className="section page-enter">
       <div className="container narrow">
-        <h1>Download Mira</h1>
-        <p className="lead">Release files are loaded directly from GitHub releases.</p>
+        <h1 className="animate-fade-up">Download Mira</h1>
 
-        <div className="toggle-row">
+        <div className="toggle-row animate-fade-up" style={{ animationDelay: "180ms" }}>
           <span className="toggle-label">Include pre-releases</span>
           <PrereleaseToggle
             checked={effectiveIncludePrereleases}
@@ -207,20 +206,20 @@ export default async function DownloadsPage({ searchParams }: PageProps) {
         </div>
 
         {!hasStableLatest && (
-          <p className="muted-note">
+          <p className="muted-note animate-fade-up" style={{ animationDelay: "250ms" }}>
             No stable latest release was found, so pre-releases are enabled automatically.
           </p>
         )}
 
         {!selectedRelease && (
-          <div className="notice">
+          <div className="notice animate-fade-up" style={{ animationDelay: "300ms" }}>
             <p>No GitHub release is currently available.</p>
           </div>
         )}
 
         {selectedRelease && slots && (
           <>
-            <div className="notice">
+            <div className="notice animate-fade-up" style={{ animationDelay: "300ms" }}>
               <p>
                 Showing <strong>{selectedRelease.name || selectedRelease.tag_name}</strong> ({selectedRelease.tag_name})
                 published on {formatDate(selectedRelease.published_at)}.

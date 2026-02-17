@@ -24,20 +24,20 @@ const highlights = [
 
 export default function Home() {
   return (
-    <main>
+    <main className="page-enter">
       <section className="hero">
         <div className="container">
           <div className="hero-stack">
             <div className="hero-copy">
-              <h1>
+              <h1 className="animate-fade-up" style={{ animationDelay: "80ms" }}>
                 <span className={solitreo.className} style={{fontSize:"55px"}}>mira</span> is an open source
                 desktop browser that helps you get everything done
               </h1>
-              <p className="muted-note">
+              <p className="muted-note animate-fade-up" style={{ animationDelay: "180ms" }}>
                 Mira is inspired by the Japanese word 未来 (mirai), meaning
                 “future.”
               </p>
-              <div className="cta-row">
+              <div className="cta-row animate-fade-up" style={{ animationDelay: "280ms" }}>
                 <Link href="/downloads" className="btn btn-primary">
                   Download Mira
                 </Link>
@@ -51,7 +51,10 @@ export default function Home() {
                 </a>
               </div>
             </div>
-            <div className="hero-card hero-card--app">
+            <div
+              className="hero-card hero-card--app animate-fade-in-scale"
+              style={{ animationDelay: "210ms" }}
+            >
               <ThemeHeroImage />
             </div>
           </div>
@@ -60,10 +63,16 @@ export default function Home() {
 
       <section className="section">
         <div className="container">
-          <h2>Made To Be Customizable</h2>
+          <h2 className="animate-fade-up" style={{ animationDelay: "120ms" }}>
+            Made To Be Customizable
+          </h2>
           <div className="feature-grid">
-            {highlights.map((item) => (
-              <article key={item.title} className="feature-card">
+            {highlights.map((item, idx) => (
+              <article
+                key={item.title}
+                className="feature-card animate-fade-up"
+                style={{ animationDelay: `${220 + idx * 120}ms` }}
+              >
                 <h2>{item.title}</h2>
                 <p>{item.text}</p>
               </article>

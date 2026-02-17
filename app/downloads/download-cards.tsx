@@ -66,7 +66,11 @@ export function DownloadCards({ slots }: DownloadCardsProps) {
   const [os, setOs] = useState<DetectedOS>("unknown");
 
   useEffect(() => {
-    setOs(detectOS());
+    const rafId = window.requestAnimationFrame(() => {
+      setOs(detectOS());
+    });
+
+    return () => window.cancelAnimationFrame(rafId);
   }, []);
 
   const orderedSlots = useMemo(
@@ -76,13 +80,14 @@ export function DownloadCards({ slots }: DownloadCardsProps) {
 
   return (
     <>
-      {orderedSlots.map((slot) => {
+      {orderedSlots.map((slot, idx) => {
         const isApplicable = os === "unknown" ? true : slot.platform === os;
 
         return (
           <article
             key={slot.label}
-            className={`download-card ${isApplicable ? "" : "inapplicable"}`}
+            className={`download-card animate-fade-up ${isApplicable ? "" : "inapplicable"}`}
+            style={{ animationDelay: `${360 + idx * 120}ms` }}
           >
             <div>
               <h2>{slot.label}</h2>
