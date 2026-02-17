@@ -169,6 +169,36 @@ a {
   border: 1px solid color-mix(in srgb, var(--line) 65%, transparent);
 }
 
+.theme-hero-image {
+  position: relative;
+}
+
+.hero-image-slot {
+  width: 100%;
+}
+
+.hero-image-dark {
+  display: none;
+}
+
+:root[data-theme="dark"] .hero-image-light {
+  display: none;
+}
+
+:root[data-theme="dark"] .hero-image-dark {
+  display: block;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .hero-image-light {
+    display: none;
+  }
+
+  :root:not([data-theme]) .hero-image-dark {
+    display: block;
+  }
+}
+
 .eyebrow {
   color: var(--muted);
   font-weight: 700;
