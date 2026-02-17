@@ -90,6 +90,17 @@ body {
   }
 }
 
+@keyframes fade-up-muted {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+  to {
+    opacity: 0.55;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 @keyframes header-drop {
   from {
     opacity: 0;
@@ -114,6 +125,12 @@ body {
 .animate-fade-in-scale {
   opacity: 0;
   animation: fade-in-scale 820ms var(--motion-ease) forwards;
+  will-change: transform, opacity;
+}
+
+.animate-fade-up-muted {
+  opacity: 0;
+  animation: fade-up-muted var(--motion-duration) var(--motion-ease) forwards;
   will-change: transform, opacity;
 }
 
@@ -352,14 +369,11 @@ h2 {
   gap: 1rem;
 }
 
-.download-card.inapplicable {
-  opacity: 0.55;
-}
-
 .download-card.inapplicable:hover {
-  transform: none;
-  box-shadow: none;
-  border-color: var(--line);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 17px rgb(2 6 23 / 0.08); 
+  border-color: color-mix(in srgb, var(--line) 75%, var(--primary));
+
 }
 
 code {
