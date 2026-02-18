@@ -17,12 +17,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `https://mira.fatalmistake02.com/about`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
       url: `https://mira.fatalmistake02.com/roadmap`,
       lastModified: now,
       changeFrequency: "daily",
