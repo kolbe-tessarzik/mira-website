@@ -20,6 +20,12 @@ const highlights = [
     title: "Built to Evolve",
     text: "Open source development keeps Mira highly customizable over time.",
   },
+  {
+    title: "Privacy By Default",
+    text: "Mira does not collect your personal data or usage analytics.",
+    href: "/privacy",
+    linkLabel: "Read privacy policy",
+  },
 ];
 
 export default function Home() {
@@ -30,12 +36,13 @@ export default function Home() {
           <div className="hero-stack">
             <div className="hero-copy">
               <h1 className="animate-fade-up" style={{ animationDelay: "80ms" }}>
-                <span className={solitreo.className} style={{fontSize:"55px"}}>mira</span> is an open source
-                desktop browser that helps you get everything done
+                <span className={solitreo.className} style={{ fontSize: "55px" }}>
+                  mira
+                </span>{" "}
+                is an open source desktop browser that helps you get everything done
               </h1>
               <p className="muted-note animate-fade-up" style={{ animationDelay: "180ms" }}>
-                Mira is inspired by the Japanese word 未来 (mirai), meaning
-                “future.”
+                Mira is inspired by the Japanese word mirai, meaning "future."
               </p>
               <div className="cta-row animate-fade-up" style={{ animationDelay: "280ms" }}>
                 <Link href="/downloads" className="btn btn-primary">
@@ -75,6 +82,13 @@ export default function Home() {
               >
                 <h2>{item.title}</h2>
                 <p>{item.text}</p>
+                {"href" in item && item.href ? (
+                  <p>
+                    <Link href={item.href} className="feature-card-link">
+                      {item.linkLabel}
+                    </Link>
+                  </p>
+                ) : null}
               </article>
             ))}
           </div>

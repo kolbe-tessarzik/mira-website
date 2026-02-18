@@ -57,11 +57,12 @@ export default function RootLayout({
 
           <footer className="site-footer">
             <div className="container nav-wrap footer-nav-wrap">
-              <p className="footer-brand">Mira Browser · MIT License · &copy; {year}</p>
+              <p className="footer-brand">Mira Browser - MIT License - &copy; {year}</p>
               <nav className="nav-links" aria-label="Footer">
                 <Link href="/">Home</Link>
                 <Link href="/roadmap">Roadmap</Link>
                 <Link href="/downloads">Downloads</Link>
+                <Link href="/privacy">Privacy</Link>
                 <a href="https://github.com/FatalMistake02/mira" target="_blank" rel="noreferrer">
                   GitHub
                 </a>

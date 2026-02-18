@@ -689,6 +689,17 @@ code {
   box-shadow: 0 16px 34px rgb(2 6 23 / 0.12);
 }
 
+.feature-card-link {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.feature-card-link:hover {
+  text-decoration: underline;
+}
+
 .roadmap-version-card-header {
   display: flex;
   gap: 0.75rem;
@@ -749,6 +760,27 @@ code {
 
 .roadmap-empty-version {
   margin: 0;
+}
+
+.privacy-grid {
+  margin-top: 1rem;
+}
+
+.privacy-card-stack {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.privacy-list {
+  margin: 0.8rem 0 0;
+  padding-left: 1.1rem;
+  color: var(--muted);
+}
+
+.privacy-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
 }
 
 @media (max-width: 640px) {
