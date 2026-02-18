@@ -346,7 +346,6 @@ export default async function DownloadsPage({ searchParams }: PageProps) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationJsonLd) }}
         />
-        <h1>Download Mira</h1>
         <p className="lead">Release files are loaded directly from GitHub releases.</p>
 
         <div className="toggle-row animate-fade-up" style={{ animationDelay: "180ms" }}>
