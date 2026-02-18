@@ -7,13 +7,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     {
-      url: `${siteUrl}/`,
+      url: `https://mira.fatalmistake02.com/`,
       lastModified: now,
       changeFrequency: "weekly",
       priority: 1,
     },
     {
-      url: `${siteUrl}/downloads`,
+      url: `https://mira.fatalmistake02.com/downloads`,
       lastModified: now,
       changeFrequency: "daily",
       priority: 0.9,
