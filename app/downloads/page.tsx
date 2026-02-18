@@ -269,16 +269,16 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
   const canonicalPath = "/downloads";
 
   return {
-    title: "Download Mira Browser for Windows and macOS",
+    title: "Download Mira Browser for Windows, macOS, and Linux",
     description:
-      "Download the latest Mira desktop browser builds for Windows and macOS, with installer and portable options directly from official GitHub releases.",
+      "Download the latest Mira desktop browser builds for Windows, macOS, and Linux, with installer and portable options directly from official GitHub releases.",
     alternates: {
       canonical: canonicalPath,
     },
     openGraph: {
-      title: "Download Mira Browser for Windows and macOS",
+      title: "Download Mira Browser for Windows, macOS, and Linux",
       description:
-        "Get official Mira downloads for Windows and macOS, including installer and portable release assets.",
+        "Get official Mira downloads for Windows, macOS, and Linux, including installer and portable release assets.",
       type: "website",
       url: canonicalPath,
       images: [
@@ -290,9 +290,9 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
     },
     twitter: {
       card: "summary_large_image",
-      title: "Download Mira Browser for Windows and macOS",
+      title: "Download Mira Browser for Windows, macOS, and Linux",
       description:
-        "Get official Mira downloads for Windows and macOS, including installer and portable release assets.",
+        "Get official Mira downloads for Windows, macOS, and Linux, including installer and portable release assets.",
       images: ["/assets/mira_logo.png"],
     },
     robots: shouldNoindex ? { index: false, follow: true } : { index: true, follow: true },
@@ -321,7 +321,7 @@ export default async function DownloadsPage({ searchParams }: PageProps) {
     "@type": "SoftwareApplication",
     name: "Mira Browser",
     applicationCategory: "BrowserApplication",
-    operatingSystem: "Windows, macOS",
+    operatingSystem: "Windows, macOS, Linux",
     softwareVersion: selectedRelease?.tag_name,
     releaseNotes: selectedRelease?.html_url,
     downloadUrl: `${siteUrl}/downloads`,
