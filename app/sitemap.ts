@@ -24,5 +24,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.7,
     },
+    {
+      url: `${siteUrl}/roadmap`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.8,
+    },
   ];
 }
