@@ -1,5 +1,7 @@
+import type { Metadata } from "next";
 import { PrereleaseToggle } from "./prerelease-toggle";
 import { DownloadCards } from "./download-cards";
+import { getSiteUrl } from "@/lib/site-url";
 
 type ReleaseAsset = {
   name: string;
@@ -260,6 +262,43 @@ type PageProps = {
   searchParams?: Promise<Record<string, string | string[] | undefined>>;
 };
 
+export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
+  const resolvedSearchParams = (await searchParams) ?? {};
+  const userIncludePrereleases = parseIncludePrereleases(resolvedSearchParams.includePrereleases);
+  const shouldNoindex = userIncludePrereleases;
+  const canonicalPath = "/downloads";
+
+  return {
+    title: "Download Mira Browser for Windows and macOS",
+    description:
+      "Download the latest Mira desktop browser builds for Windows and macOS, with installer and portable options directly from official GitHub releases.",
+    alternates: {
+      canonical: canonicalPath,
+    },
+    openGraph: {
+      title: "Download Mira Browser for Windows and macOS",
+      description:
+        "Get official Mira downloads for Windows and macOS, including installer and portable release assets.",
+      type: "website",
+      url: canonicalPath,
+      images: [
+        {
+          url: "/assets/mira_logo.png",
+          alt: "Mira browser logo",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Download Mira Browser for Windows and macOS",
+      description:
+        "Get official Mira downloads for Windows and macOS, including installer and portable release assets.",
+      images: ["/assets/mira_logo.png"],
+    },
+    robots: shouldNoindex ? { index: false, follow: true } : { index: true, follow: true },
+  };
+}
+
 export default async function DownloadsPage({ searchParams }: PageProps) {
   const resolvedSearchParams = (await searchParams) ?? {};
   const userIncludePrereleases = parseIncludePrereleases(resolvedSearchParams.includePrereleases);
@@ -275,11 +314,40 @@ export default async function DownloadsPage({ searchParams }: PageProps) {
     : (stableReleases[0] ?? null);
 
   const slots = selectedRelease ? buildDownloadSlots(selectedRelease) : null;
+  const siteUrl = getSiteUrl();
+  const releaseName = selectedRelease?.name || selectedRelease?.tag_name || "Latest";
+  const softwareApplicationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Mira Browser",
+    applicationCategory: "BrowserApplication",
+    operatingSystem: "Windows, macOS",
+    softwareVersion: selectedRelease?.tag_name,
+    releaseNotes: selectedRelease?.html_url,
+    downloadUrl: `${siteUrl}/downloads`,
+    url: `${siteUrl}/downloads`,
+    publisher: {
+      "@type": "Organization",
+      name: "Mira",
+      url: "https://github.com/FatalMistake02/mira",
+    },
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+  };
 
   return (
     <main className="section page-enter">
       <div className="container narrow">
         <h1 className="animate-fade-up">Download Mira</h1>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationJsonLd) }}
+        />
+        <h1>Download Mira</h1>
+        <p className="lead">Release files are loaded directly from GitHub releases.</p>
 
         <div className="toggle-row animate-fade-up" style={{ animationDelay: "180ms" }}>
           <span className="toggle-label">Include pre-releases</span>
@@ -305,7 +373,7 @@ export default async function DownloadsPage({ searchParams }: PageProps) {
           <>
             <div className="notice animate-fade-up" style={{ animationDelay: "300ms" }}>
               <p>
-                Showing <strong>{selectedRelease.name || selectedRelease.tag_name}</strong> ({selectedRelease.tag_name})
+                Showing <strong>{releaseName}</strong> ({selectedRelease.tag_name})
                 published on {formatDate(selectedRelease.published_at)}.
               </p>
               <p>
