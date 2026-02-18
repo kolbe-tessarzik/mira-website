@@ -13,4 +13,4 @@ Open `http://localhost:3000`.
 
 ## Published Site
 
-Download Mira [here](https://mira.fatalmistake02.com/downloads)
+Download Mira for Windows, MacOS and Linux [here](https://mira.fatalmistake02.com/downloads).
