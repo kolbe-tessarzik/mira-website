@@ -1,8 +1,6 @@
 import type { MetadataRoute } from "next";
-import { getSiteUrl } from "@/lib/site-url";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = getSiteUrl();
   const now = new Date();
 
   return [
@@ -19,19 +17,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${siteUrl}/about`,
+      url: `https://mira.fatalmistake02.com/about`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
-      url: `${siteUrl}/roadmap`,
+      url: `https://mira.fatalmistake02.com/roadmap`,
       lastModified: now,
       changeFrequency: "daily",
       priority: 0.8,
     },
     {
-      url: `${siteUrl}/privacy`,
+      url: `https://mira.fatalmistake02.com/privacy`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.6,
