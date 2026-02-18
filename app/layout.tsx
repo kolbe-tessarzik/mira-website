@@ -42,6 +42,8 @@ export default function RootLayout({
             <div className="nav-controls">
               <nav className="nav-links" aria-label="Primary">
                 <Link href="/">Home</Link>
+                <Link href="/about">About</Link>
+                <Link href="/roadmap">Roadmap</Link>
                 <Link href="/downloads">Downloads</Link>
               </nav>
               <ThemeToggle />
