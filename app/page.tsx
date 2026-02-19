@@ -21,6 +21,10 @@ const highlights = [
     text: "Open source development keeps Mira highly customizable over time.",
   },
   {
+    title: "Avoid Tracking",
+    text: "Mira comes with a built-in tracker blocker so you can browse the internet safely."
+  },
+  {
     title: "Privacy By Default",
     text: "Mira does not collect your personal data or usage analytics.",
     href: "/privacy",
