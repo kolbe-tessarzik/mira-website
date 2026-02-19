@@ -25,6 +25,10 @@ const highlights = [
     text: "Mira comes with a built-in tracker blocker so you can browse the internet safely."
   },
   {
+    title: "Free",
+    text: "Mira is and will always be completely free!"
+  },
+  {
     title: "Privacy By Default",
     text: "Mira does not collect your personal data or usage analytics.",
     href: "/privacy",
