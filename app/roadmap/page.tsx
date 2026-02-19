@@ -175,7 +175,7 @@ export default async function RoadmapPage() {
           <div className="notice animate-fade-up" style={{ animationDelay: "180ms" }}>
             <p>
               Imported from:{" "}
-              <a href={roadmapPlan.sourceUrl} target="_blank" rel="noreferrer">
+              <a href={roadmapPlan.sourceUrl} target="_blank" rel="noreferrer" className="roadmap-source-link">
                 ROADMAP.md on GitHub
               </a>
             </p>

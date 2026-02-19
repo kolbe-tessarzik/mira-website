@@ -700,6 +700,28 @@ code {
   text-decoration: underline;
 }
 
+.roadmap-source-link {
+  color: #ffffff !important;
+  text-decoration-line: underline !important;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.roadmap-source-link:hover {
+  color: #ffffff;
+  opacity: 0.9;
+}
+
+:root[data-theme="dark"] .roadmap-source-link {
+  color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .roadmap-source-link:hover {
+  color: #bae6fd;
+}
+
 .roadmap-version-card-header {
   display: flex;
   gap: 0.75rem;
