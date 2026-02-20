@@ -42,7 +42,7 @@ export default function Home() {
                 is an open source desktop browser that helps you get everything done
               </h1>
               <p className="muted-note animate-fade-up" style={{ animationDelay: "180ms" }}>
-                Mira is inspired by the Japanese word mirai, meaning "future."
+                Mira is inspired by the Japanese word 未来 (mirai), meaning "future."
               </p>
               <div className="cta-row animate-fade-up" style={{ animationDelay: "280ms" }}>
                 <Link href="/downloads" className="btn btn-primary">
