@@ -700,26 +700,36 @@ code {
   text-decoration: underline;
 }
 
-.roadmap-source-link {
-  color: #ffffff !important;
+.notice .roadmap-source-link {
+  color: #0b4a6f !important;
   text-decoration-line: underline !important;
+  text-decoration-color: currentColor;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
 }
 
-.roadmap-source-link:hover {
-  color: #ffffff;
-  opacity: 0.9;
+.notice .roadmap-source-link:hover {
+  color: #075985 !important;
 }
 
-:root[data-theme="dark"] .roadmap-source-link {
+:root[data-theme="dark"] .notice .roadmap-source-link {
   color: #ffffff !important;
 }
 
-:root[data-theme="dark"] .roadmap-source-link:hover {
-  color: #bae6fd;
+:root[data-theme="dark"] .notice .roadmap-source-link:hover {
+  color: #7dd3fc;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .notice .roadmap-source-link {
+    color: #ffffff !important;
+  }
+
+  :root:not([data-theme]) .notice .roadmap-source-link:hover {
+    color: #7dd3fc !important;
+  }
 }
 
 .roadmap-version-card-header {
