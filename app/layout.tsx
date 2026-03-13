@@ -9,6 +9,28 @@ export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   title: "Mira Browser",
   description: "An open source desktop browser that helps you get everything done.",
+  keywords: [
+    "FatalMistake02",
+    "Fatal Mistake 02",
+    "Kolbe Tessarzik",
+    "kolbe-tessarzik",
+    "Mira",
+    "Browser",
+    "open source browser",
+    "open-source browser",
+    "customizable browser",
+    "customizable themes",
+    "browser themes",
+    "themeable browser",
+    "desktop browser",
+    "Electron browser",
+    "React browser",
+    "MIT licensed browser",
+    "easy to use",
+    "ad blocker",
+    "ad-blocker",
+    "browser with ad blocker",
+  ],
 };
 
 export default function RootLayout({
