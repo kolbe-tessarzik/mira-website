@@ -9,6 +9,12 @@ type ReleaseAsset = {
   size: number;
 };
 
+type ParsedSemver = {
+  major: number;
+  minor: number;
+  patch: number;
+};
+
 type GitHubRelease = {
   id: number;
   name: string;
@@ -35,6 +41,48 @@ function parseIncludePrereleases(value: string | string[] | undefined): boolean 
   }
 
   return value === "1" || value === "true";
+}
+
+function parseSemver(value: string): ParsedSemver | null {
+  const cleaned = value.trim().replace(/^v/i, "");
+  const numericPrefix = cleaned.match(/^[\d.]+/)?.[0] ?? cleaned;
+  const match = numericPrefix.match(/^(\d+)\.(\d+)\.(\d+)\b/);
+
+  if (!match) {
+    return null;
+  }
+
+  return {
+    major: Number(match[1]),
+    minor: Number(match[2]),
+    patch: Number(match[3]),
+  };
+}
+
+function compareSemver(a: ParsedSemver, b: ParsedSemver): number {
+  if (a.major !== b.major) return a.major - b.major;
+  if (a.minor !== b.minor) return a.minor - b.minor;
+  return a.patch - b.patch;
+}
+
+function getReleaseSemver(release: GitHubRelease): ParsedSemver | null {
+  return parseSemver(release.tag_name) ?? parseSemver(release.name);
+}
+
+function getLatestReleaseBySemver(releases: GitHubRelease[]): GitHubRelease | null {
+  let latest: GitHubRelease | null = null;
+  let latestSemver: ParsedSemver | null = null;
+
+  for (const release of releases) {
+    const semver = getReleaseSemver(release);
+    if (!semver) continue;
+    if (!latestSemver || compareSemver(semver, latestSemver) > 0) {
+      latest = release;
+      latestSemver = semver;
+    }
+  }
+
+  return latest;
 }
 
 function isDownloadableAsset(name: string): boolean {
@@ -309,9 +357,10 @@ export default async function DownloadsPage({ searchParams }: PageProps) {
   const hasStableLatest = stableReleases.length > 0;
   const effectiveIncludePrereleases = userIncludePrereleases || !hasStableLatest;
 
-  const selectedRelease = effectiveIncludePrereleases
-    ? (allReleases[0] ?? null)
-    : (stableReleases[0] ?? null);
+  const candidateReleases = effectiveIncludePrereleases ? allReleases : stableReleases;
+  const fallbackRelease = candidateReleases[0] ?? null;
+  const updateRelease = getLatestReleaseBySemver(candidateReleases) ?? fallbackRelease;
+  const selectedRelease = updateRelease ?? fallbackRelease;
 
   const slots = selectedRelease ? buildDownloadSlots(selectedRelease) : null;
   const siteUrl = getSiteUrl();

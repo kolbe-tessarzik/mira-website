@@ -423,6 +423,93 @@ h2 {
   gap: 1rem;
 }
 
+.update-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.4rem 1.6rem;
+  margin-bottom: 1rem;
+  border-width: 2px;
+  border-color: color-mix(in srgb, var(--primary) 35%, var(--line));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 18%, var(--surface)) 0%, var(--surface) 65%);
+}
+
+.update-banner-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 0 0 0.35rem;
+}
+
+.update-banner-subtitle {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.update-banner-cta {
+  padding: 0.85rem 1.4rem;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.update-banner-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.update-banner-copy {
+  padding: 0.85rem 1.2rem;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.update-banner-hint {
+  margin: 0.6rem 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.update-banner-compact {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--primary) 30%, transparent);
+  font-size: 0.75rem;
+  margin: 0 0 0 0.5rem;
+  position: relative;
+  top: -1px;
+  line-height: 1.2;
+  text-decoration: none;
+  color: var(--primary);
+  transition: background-color var(--motion-fast), color var(--motion-fast), border-color var(--motion-fast);
+}
+
+.update-banner-compact:hover {
+  background: color-mix(in srgb, var(--primary) 10%, var(--surface));
+  border-color: color-mix(in srgb, var(--primary) 50%, transparent);
+  text-decoration: none;
+  color: var(--primary);
+}
+
+.update-badge {
+  color: var(--primary);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.update-banner-compact-actions {
+  display: flex;
+  gap: 0.2rem;
+  align-items: center;
+}
+
 .download-card.inapplicable:hover {
   transform: translateY(-1px);
   box-shadow: 0 8px 17px rgb(2 6 23 / 0.08); 
@@ -514,6 +601,21 @@ code {
   .download-card {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .update-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .update-banner-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .update-banner-cta,
+  .update-banner-copy {
+    width: 100%;
   }
 }
 

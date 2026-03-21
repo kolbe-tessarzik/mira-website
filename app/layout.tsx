@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ThemeToggle } from "./theme-toggle";
+import { UpdateBanner } from "./downloads/update-banner";
+import { getLatestVersion } from "./lib/latest-version";
 import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
 
@@ -35,12 +37,13 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const year = new Date().getFullYear();
+  const latestVersion = await getLatestVersion();
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -56,16 +59,19 @@ export default function RootLayout({
         <div className="site-shell">
           <header className="site-header">
             <div className="container nav-wrap">
-              <Link href="/" className="brand" aria-label="Mira home">
-                <Image
-                  src="/assets/mira.png"
-                  alt="Mira"
-                  width={140}
-                  height={38}
-                  className="brand-image"
-                  priority
-                />
-              </Link>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                <Link href="/" className="brand" aria-label="Mira home">
+                  <Image
+                    src="/assets/mira.png"
+                    alt="Mira"
+                    width={140}
+                    height={38}
+                    className="brand-image"
+                    priority
+                  />
+                </Link>
+                <UpdateBanner latestVersion={latestVersion} settingsUrl="mira://settings#app&checkUpdates=true" compact />
+              </div>
               <div className="nav-controls">
                 <nav className="nav-links" aria-label="Primary">
                   <Link href="/">Home</Link>
