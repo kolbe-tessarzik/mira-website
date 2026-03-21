@@ -409,6 +409,26 @@ h2 {
   white-space: nowrap;
 }
 
+.update-banner-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.update-banner-copy {
+  padding: 0.85rem 1.2rem;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.update-banner-hint {
+  margin: 0.6rem 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
 .download-card.inapplicable:hover {
   transform: translateY(-1px);
   box-shadow: 0 8px 17px rgb(2 6 23 / 0.08); 
@@ -506,7 +526,13 @@ code {
     align-items: flex-start;
   }
 
-  .update-banner-cta {
+  .update-banner-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .update-banner-cta,
+  .update-banner-copy {
     width: 100%;
   }
 }

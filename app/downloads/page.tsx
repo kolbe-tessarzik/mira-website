@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PrereleaseToggle } from "./prerelease-toggle";
 import { DownloadCards } from "./download-cards";
+import { UpdateBanner } from "./update-banner";
 import { getSiteUrl } from "@/lib/site-url";
 
 type ReleaseAsset = {
@@ -34,7 +35,7 @@ type DownloadSlot = {
 
 const REPO_OWNER = "FatalMistake02";
 const REPO_NAME = "mira";
-const SETTINGS_URL = "mira://settings";
+const SETTINGS_URL = "mira://settings#app&checkUpdates=true";
 
 function parseIncludePrereleases(value: string | string[] | undefined): boolean {
   if (Array.isArray(value)) {
@@ -64,18 +65,6 @@ function compareSemver(a: ParsedSemver, b: ParsedSemver): number {
   if (a.major !== b.major) return a.major - b.major;
   if (a.minor !== b.minor) return a.minor - b.minor;
   return a.patch - b.patch;
-}
-
-function getStringParam(value: string | string[] | undefined): string | null {
-  if (Array.isArray(value)) {
-    return value.find((entry) => entry.trim().length > 0) ?? null;
-  }
-
-  if (typeof value === "string" && value.trim().length > 0) {
-    return value;
-  }
-
-  return null;
 }
 
 function getReleaseSemver(release: GitHubRelease): ParsedSemver | null {
@@ -363,10 +352,6 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
 export default async function DownloadsPage({ searchParams }: PageProps) {
   const resolvedSearchParams = (await searchParams) ?? {};
   const userIncludePrereleases = parseIncludePrereleases(resolvedSearchParams.includePrereleases);
-  const currentVersionParam =
-    getStringParam(resolvedSearchParams.currentVersion) ??
-    getStringParam(resolvedSearchParams.version) ??
-    getStringParam(resolvedSearchParams.installedVersion);
 
   const allReleases = await fetchReleases();
   const stableReleases = allReleases.filter((release) => !release.prerelease);
@@ -382,10 +367,6 @@ export default async function DownloadsPage({ searchParams }: PageProps) {
   const slots = selectedRelease ? buildDownloadSlots(selectedRelease) : null;
   const siteUrl = getSiteUrl();
   const releaseName = selectedRelease?.name || selectedRelease?.tag_name || "Latest";
-  const releaseSemver = updateRelease ? getReleaseSemver(updateRelease) : null;
-  const installedSemver = currentVersionParam ? parseSemver(currentVersionParam) : null;
-  const isOutdated =
-    Boolean(installedSemver && releaseSemver && compareSemver(installedSemver, releaseSemver) < 0);
   const softwareApplicationJsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -432,21 +413,11 @@ export default async function DownloadsPage({ searchParams }: PageProps) {
           </p>
         )}
 
-        {selectedRelease && isOutdated && (
-          <div className="notice update-banner animate-fade-up" style={{ animationDelay: "260ms" }}>
-            <div>
-              <p className="update-banner-title">
-                Update available: Mira <strong>{updateRelease?.tag_name ?? selectedRelease.tag_name}</strong>
-              </p>
-              <p className="update-banner-subtitle">
-                You are currently on <strong>{currentVersionParam}</strong>. Open settings to install the latest
-                build.
-              </p>
-            </div>
-            <a className="btn btn-primary update-banner-cta" href={SETTINGS_URL}>
-              Open Settings
-            </a>
-          </div>
+        {selectedRelease && (
+          <UpdateBanner
+            latestVersion={updateRelease?.tag_name ?? selectedRelease.tag_name}
+            settingsUrl={SETTINGS_URL}
+          />
         )}
 
         {!selectedRelease && (
