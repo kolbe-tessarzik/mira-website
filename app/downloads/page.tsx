@@ -290,7 +290,6 @@ async function fetchReleases(): Promise<GitHubRelease[]> {
       Accept: "application/vnd.github+json",
       "User-Agent": "mira-website",
     },
-    next: { revalidate: 300 },
   });
 
   if (!response.ok) {
