@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { PrereleaseToggle } from "./prerelease-toggle";
 import { DownloadCards } from "./download-cards";
-import { UpdateBanner } from "./update-banner";
 import { getSiteUrl } from "@/lib/site-url";
 
 type ReleaseAsset = {
@@ -35,7 +34,6 @@ type DownloadSlot = {
 
 const REPO_OWNER = "FatalMistake02";
 const REPO_NAME = "mira";
-const SETTINGS_URL = "mira://settings#app&checkUpdates=true";
 
 function parseIncludePrereleases(value: string | string[] | undefined): boolean {
   if (Array.isArray(value)) {
@@ -411,13 +409,6 @@ export default async function DownloadsPage({ searchParams }: PageProps) {
           <p className="muted-note animate-fade-up" style={{ animationDelay: "250ms" }}>
             No stable latest release was found, so pre-releases are enabled automatically.
           </p>
-        )}
-
-        {selectedRelease && (
-          <UpdateBanner
-            latestVersion={updateRelease?.tag_name ?? selectedRelease.tag_name}
-            settingsUrl={SETTINGS_URL}
-          />
         )}
 
         {!selectedRelease && (

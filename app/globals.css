@@ -429,6 +429,43 @@ h2 {
   font-size: 0.95rem;
 }
 
+.update-banner-compact {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--primary) 30%, transparent);
+  font-size: 0.75rem;
+  margin: 0 0 0 0.5rem;
+  position: relative;
+  top: -1px;
+  line-height: 1.2;
+  text-decoration: none;
+  color: var(--primary);
+  transition: background-color var(--motion-fast), color var(--motion-fast), border-color var(--motion-fast);
+}
+
+.update-banner-compact:hover {
+  background: color-mix(in srgb, var(--primary) 10%, var(--surface));
+  border-color: color-mix(in srgb, var(--primary) 50%, transparent);
+  text-decoration: none;
+  color: var(--primary);
+}
+
+.update-badge {
+  color: var(--primary);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.update-banner-compact-actions {
+  display: flex;
+  gap: 0.2rem;
+  align-items: center;
+}
+
 .download-card.inapplicable:hover {
   transform: translateY(-1px);
   box-shadow: 0 8px 17px rgb(2 6 23 / 0.08); 

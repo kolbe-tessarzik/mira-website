@@ -12,6 +12,7 @@ type ParsedSemver = {
 type UpdateBannerProps = {
   latestVersion: string | null;
   settingsUrl: string;
+  compact?: boolean;
 };
 
 type DetectedInfo = {
@@ -71,7 +72,7 @@ function detectFromUserAgent(userAgent: string): DetectedInfo {
   return { browserName: "Browser", browserVersion: null, miraVersion: null };
 }
 
-export function UpdateBanner({ latestVersion, settingsUrl }: UpdateBannerProps) {
+export function UpdateBanner({ latestVersion, settingsUrl, compact = false }: UpdateBannerProps) {
   const [detected, setDetected] = useState<DetectedInfo>({
     browserName: "Browser",
     browserVersion: null,
@@ -137,6 +138,18 @@ export function UpdateBanner({ latestVersion, settingsUrl }: UpdateBannerProps) 
 
   if (!latestVersion || !isOutdated) {
     return null;
+  }
+
+  if (compact) {
+    return (
+      <a 
+        href={settingsUrl}
+        className="update-banner-compact animate-fade-up" 
+        style={{ animationDelay: "260ms" }}
+      >
+        <span className="update-badge">Update Mira</span>
+      </a>
+    );
   }
 
   return (
