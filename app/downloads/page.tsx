@@ -9,6 +9,12 @@ type ReleaseAsset = {
   size: number;
 };
 
+type ParsedSemver = {
+  major: number;
+  minor: number;
+  patch: number;
+};
+
 type GitHubRelease = {
   id: number;
   name: string;
@@ -28,6 +34,7 @@ type DownloadSlot = {
 
 const REPO_OWNER = "FatalMistake02";
 const REPO_NAME = "mira";
+const SETTINGS_URL = "mira://settings";
 
 function parseIncludePrereleases(value: string | string[] | undefined): boolean {
   if (Array.isArray(value)) {
@@ -35,6 +42,60 @@ function parseIncludePrereleases(value: string | string[] | undefined): boolean 
   }
 
   return value === "1" || value === "true";
+}
+
+function parseSemver(value: string): ParsedSemver | null {
+  const cleaned = value.trim().replace(/^v/i, "");
+  const numericPrefix = cleaned.match(/^[\d.]+/)?.[0] ?? cleaned;
+  const match = numericPrefix.match(/^(\d+)\.(\d+)\.(\d+)\b/);
+
+  if (!match) {
+    return null;
+  }
+
+  return {
+    major: Number(match[1]),
+    minor: Number(match[2]),
+    patch: Number(match[3]),
+  };
+}
+
+function compareSemver(a: ParsedSemver, b: ParsedSemver): number {
+  if (a.major !== b.major) return a.major - b.major;
+  if (a.minor !== b.minor) return a.minor - b.minor;
+  return a.patch - b.patch;
+}
+
+function getStringParam(value: string | string[] | undefined): string | null {
+  if (Array.isArray(value)) {
+    return value.find((entry) => entry.trim().length > 0) ?? null;
+  }
+
+  if (typeof value === "string" && value.trim().length > 0) {
+    return value;
+  }
+
+  return null;
+}
+
+function getReleaseSemver(release: GitHubRelease): ParsedSemver | null {
+  return parseSemver(release.tag_name) ?? parseSemver(release.name);
+}
+
+function getLatestReleaseBySemver(releases: GitHubRelease[]): GitHubRelease | null {
+  let latest: GitHubRelease | null = null;
+  let latestSemver: ParsedSemver | null = null;
+
+  for (const release of releases) {
+    const semver = getReleaseSemver(release);
+    if (!semver) continue;
+    if (!latestSemver || compareSemver(semver, latestSemver) > 0) {
+      latest = release;
+      latestSemver = semver;
+    }
+  }
+
+  return latest;
 }
 
 function isDownloadableAsset(name: string): boolean {
@@ -302,6 +363,10 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
 export default async function DownloadsPage({ searchParams }: PageProps) {
   const resolvedSearchParams = (await searchParams) ?? {};
   const userIncludePrereleases = parseIncludePrereleases(resolvedSearchParams.includePrereleases);
+  const currentVersionParam =
+    getStringParam(resolvedSearchParams.currentVersion) ??
+    getStringParam(resolvedSearchParams.version) ??
+    getStringParam(resolvedSearchParams.installedVersion);
 
   const allReleases = await fetchReleases();
   const stableReleases = allReleases.filter((release) => !release.prerelease);
@@ -309,13 +374,18 @@ export default async function DownloadsPage({ searchParams }: PageProps) {
   const hasStableLatest = stableReleases.length > 0;
   const effectiveIncludePrereleases = userIncludePrereleases || !hasStableLatest;
 
-  const selectedRelease = effectiveIncludePrereleases
-    ? (allReleases[0] ?? null)
-    : (stableReleases[0] ?? null);
+  const candidateReleases = effectiveIncludePrereleases ? allReleases : stableReleases;
+  const fallbackRelease = candidateReleases[0] ?? null;
+  const updateRelease = getLatestReleaseBySemver(candidateReleases) ?? fallbackRelease;
+  const selectedRelease = updateRelease ?? fallbackRelease;
 
   const slots = selectedRelease ? buildDownloadSlots(selectedRelease) : null;
   const siteUrl = getSiteUrl();
   const releaseName = selectedRelease?.name || selectedRelease?.tag_name || "Latest";
+  const releaseSemver = updateRelease ? getReleaseSemver(updateRelease) : null;
+  const installedSemver = currentVersionParam ? parseSemver(currentVersionParam) : null;
+  const isOutdated =
+    Boolean(installedSemver && releaseSemver && compareSemver(installedSemver, releaseSemver) < 0);
   const softwareApplicationJsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -360,6 +430,23 @@ export default async function DownloadsPage({ searchParams }: PageProps) {
           <p className="muted-note animate-fade-up" style={{ animationDelay: "250ms" }}>
             No stable latest release was found, so pre-releases are enabled automatically.
           </p>
+        )}
+
+        {selectedRelease && isOutdated && (
+          <div className="notice update-banner animate-fade-up" style={{ animationDelay: "260ms" }}>
+            <div>
+              <p className="update-banner-title">
+                Update available: Mira <strong>{updateRelease?.tag_name ?? selectedRelease.tag_name}</strong>
+              </p>
+              <p className="update-banner-subtitle">
+                You are currently on <strong>{currentVersionParam}</strong>. Open settings to install the latest
+                build.
+              </p>
+            </div>
+            <a className="btn btn-primary update-banner-cta" href={SETTINGS_URL}>
+              Open Settings
+            </a>
+          </div>
         )}
 
         {!selectedRelease && (

@@ -379,6 +379,36 @@ h2 {
   gap: 1rem;
 }
 
+.update-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.4rem 1.6rem;
+  margin-bottom: 1rem;
+  border-width: 2px;
+  border-color: color-mix(in srgb, var(--primary) 35%, var(--line));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 18%, var(--surface)) 0%, var(--surface) 65%);
+}
+
+.update-banner-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 0 0 0.35rem;
+}
+
+.update-banner-subtitle {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.update-banner-cta {
+  padding: 0.85rem 1.4rem;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
 .download-card.inapplicable:hover {
   transform: translateY(-1px);
   box-shadow: 0 8px 17px rgb(2 6 23 / 0.08); 
@@ -469,6 +499,15 @@ code {
   .download-card {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .update-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .update-banner-cta {
+    width: 100%;
   }
 }
 
