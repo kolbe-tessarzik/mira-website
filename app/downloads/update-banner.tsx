@@ -97,6 +97,7 @@ export function UpdateBanner({ latestVersion, settingsUrl, compact = false }: Up
 
   const isOutdated = useMemo(() => {
     if (!latestVersion || !detected.miraVersion) {
+      console.warn(`Malformed version`)
       return false;
     }
 
@@ -115,9 +116,9 @@ export function UpdateBanner({ latestVersion, settingsUrl, compact = false }: Up
 
   if (compact) {
     return (
-      <a 
+      <a
         href={settingsUrl}
-        className="update-banner-compact animate-fade-up" 
+        className="update-banner-compact animate-fade-up"
         style={{ animationDelay: "260ms" }}
       >
         <span className="update-badge">Update Mira</span>
