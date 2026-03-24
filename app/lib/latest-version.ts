@@ -67,7 +67,7 @@ async function fetchReleases(): Promise<GitHubRelease[]> {
       Accept: "application/vnd.github+json",
       "User-Agent": "mira-website",
     },
-    next: { revalidate: 300 },
+    next: { revalidate: 150 },
   });
 
   if (!response.ok) {
@@ -84,7 +84,7 @@ export const getLatestVersion = cache(async (): Promise<string | null> => {
     const stableReleases = allReleases.filter((release) => !release.prerelease);
     const candidateReleases = stableReleases.length > 0 ? stableReleases : allReleases;
     const latestRelease = getLatestReleaseBySemver(candidateReleases);
-    
+
     return latestRelease?.tag_name ?? null;
   } catch {
     return null;
