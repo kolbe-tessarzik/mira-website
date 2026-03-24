@@ -294,7 +294,7 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
   const fallbackRelease = candidateReleases[0] ?? null;
   const updateRelease = getLatestReleaseBySemver(candidateReleases) ?? fallbackRelease;
   const selectedRelease = updateRelease ?? fallbackRelease;
-  const shouldNoindex = selectedRelease?.prerelease ?? effectiveIncludePrereleases;
+  const shouldNoindex = selectedRelease?.prerelease ?? userIncludePrereleases;
   const canonicalPath = "/downloads";
 
   return {
