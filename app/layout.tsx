@@ -74,6 +74,7 @@ export default async function RootLayout({
               "try{const t=localStorage.getItem('theme-preference');if(t==='light'||t==='dark'){document.documentElement.dataset.theme=t;}}catch{}",
           }}
         />
+        <meta name="google-site-verification" content="RwpruDDKM5uiqVPr4VkMb4f6Luwz6vx1XXBqb2HebdQ" />
       </head>
       <body>
         <div className="site-shell">
@@ -117,16 +118,17 @@ export default async function RootLayout({
                 <Link href="/downloads">Downloads</Link>
                 <Link href="/themes">Themes</Link>
                 <Link href="/privacy">Privacy</Link>
-                <a href="https://github.com/FatalMistake02/mira" target="_blank" rel="noreferrer">
-                  GitHub
-                </a>
-                <a
-                  href="https://github.com/FatalMistake02/mira/blob/main/LICENSE"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  License
-                </a>
+                <a href="https://github.com/Mira-Studios/mira" target="_blank" rel="noreferrer">
+                    GitHub
+                  </a>
+                  <a
+                    href="https://github.com/FatalMistake02/mira/blob/main/LICENSE"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    License
+                  </a>
+                  <Link href="/terms">Terms</Link>
               </nav>
             </div>
           </footer>
