@@ -16,7 +16,7 @@ type ParsedSemver = {
   patch: number;
 };
 
-const REPO_OWNER = "FatalMistake02";
+const REPO_OWNER = "Mira-Studios";
 const REPO_NAME = "mira";
 
 function parseSemver(value: string): ParsedSemver | null {

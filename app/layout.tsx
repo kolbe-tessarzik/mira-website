@@ -17,6 +17,8 @@ export const metadata: Metadata = {
   keywords: [
     "FatalMistake02",
     "Fatal Mistake 02",
+    "Mira-Studios",
+    "Mira Studios",
     "Kolbe Tessarzik",
     "kolbe-tessarzik",
     "Mira",
@@ -122,7 +124,7 @@ export default async function RootLayout({
                     GitHub
                   </a>
                   <a
-                    href="https://github.com/FatalMistake02/mira/blob/main/LICENSE"
+                    href="https://github.com/Mira-Studios/mira/blob/main/LICENSE"
                     target="_blank"
                     rel="noreferrer"
                   >

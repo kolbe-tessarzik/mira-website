@@ -5,31 +5,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     {
-      url: `https://mira.fatalmistake02.com/`,
+      url: `https://mira.mira-studios.com/`,
       lastModified: now,
       changeFrequency: "weekly",
       priority: 1,
     },
     {
-      url: `https://mira.fatalmistake02.com/downloads`,
+      url: `https://mira.mira-studios.com/downloads`,
       lastModified: now,
       changeFrequency: "daily",
       priority: 0.9,
     },
     {
-      url: `https://mira.fatalmistake02.com/roadmap`,
+      url: `https://mira.mira-studios.com/roadmap`,
       lastModified: now,
       changeFrequency: "daily",
       priority: 0.8,
     },
     {
-      url: `https://mira.fatalmistake02.com/privacy`,
+      url: `https://mira.mira-studios.com/privacy`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.6,
     },
     {
-      url: `https://mira.fatalmistake02.com/themes`,
+      url: `https://mira.mira-studios.com/themes`,
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.7,

@@ -1,6 +1,6 @@
 # Mira Website
 
-This is the website for [Mira](https://github.com/FatalMistake02/mira), an open-source desktop browser.
+This is the website for [Mira](https://github.com/Mira-Studios/mira), an open-source desktop browser.
 
 ## Development
 

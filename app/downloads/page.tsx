@@ -32,7 +32,7 @@ type DownloadSlot = {
   asset: ReleaseAsset | null;
 };
 
-const REPO_OWNER = "FatalMistake02";
+const REPO_OWNER = "Mira-Studios";
 const REPO_NAME = "mira";
 
 function parseIncludePrereleases(value: string | string[] | undefined): boolean {
@@ -378,7 +378,7 @@ export default async function DownloadsPage({ searchParams }: PageProps) {
     publisher: {
       "@type": "Organization",
       name: "Mira",
-      url: "https://github.com/FatalMistake02/mira",
+      url: "https://github.com/Mira-Studios/mira",
     },
     offers: {
       "@type": "Offer",

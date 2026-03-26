@@ -23,7 +23,7 @@ type RoadmapPlan = {
   sourceUrl: string | null;
 } | null;
 
-const REPO_OWNER = "FatalMistake02";
+const REPO_OWNER = "Mira-Studios";
 const REPO_NAME = "mira";
 const ROADMAP_URL = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/ROADMAP.md`;
 

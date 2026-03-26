@@ -55,7 +55,7 @@ export default function Home() {
                   Download Mira
                 </Link>
                 <a
-                  href="https://github.com/FatalMistake02/mira"
+                  href="https://github.com/Mira-Studios/mira"
                   className="btn btn-ghost"
                   target="_blank"
                   rel="noreferrer"
